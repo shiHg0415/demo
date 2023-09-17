@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HousingCustodyMapper">
+
+    <resultMap id="HousingCustodyResultVo" type="com.ruoyi.system.domain.vo.HousingCustodyVo">
+        <result property="contractId" column="contract_id"/>
+        <result property="rentId" column="rent_id"/>
+        <result property="rentName" column="rent_name"/>
+        <result property="housingId" column="housing_id"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="waterCount" column="water_count"/>
+        <result property="electricCount" column="electric_count"/>
+        <result property="gasCount" column="gas_count"/>
+        <result property="waterArrays" column="water_arrays"/>
+        <result property="electricArrays" column="electric_arrays"/>
+        <result property="gasArrays" column="gas_arrays"/>
+    </resultMap>
+    <resultMap id="HousingCustodyResult" type="com.ruoyi.system.domain.HousingCustody">
+        <id property="id" column="id"/>
+        <result property="contractId" column="contract_id"/>
+        <result property="rentId" column="rent_id"/>
+        <result property="rentName" column="rent_name"/>
+        <result property="housingId" column="housing_id"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="waterCount" column="water_count"/>
+        <result property="electricCount" column="electric_count"/>
+        <result property="gasCount" column="gas_count"/>
+        <result property="waterArrays" column="water_arrays"/>
+        <result property="electricArrays" column="electric_arrays"/>
+        <result property="gasArrays" column="gas_arrays"/>
+    </resultMap>
+
+    <sql id="selectHousingCustodyVo">
+        select hc.id, hc.contract_id, hc.rent_id, hc.rent_name, hc.housing_id, hc.housing_landlord_name, hc.water_count, hc.electric_count, hc.gas_count, hc.water_arrays, hc.electric_arrays, hc.gas_arrays from housing_custody hc
+    </sql>
+    <select id="queryList" parameterType="com.ruoyi.system.domain.dto.HousingCustodyQuery" resultMap="HousingCustodyResultVo">
+        <include refid="selectHousingCustodyVo"/>
+        <where>
+            <if test="contractId != null "> and hc.contract_id = #{contractId}</if>
+            <if test="rentId != null "> and hc.rent_id = #{rentId}</if>
+            <if test="rentName != null and rentName != ''"> and hc.rent_name like concat('%', #{rentName}, '%')</if>
+            <if test="housingId != null "> and hc.housing_id = #{housingId}</if>
+            <if test="housingLandlordName != null and housingLandlordName != ''"> and hc.housing_landlord_name like concat('%', #{housingLandlordName}, '%')</if>
+            <if test="waterCount != null and waterCount != ''"> and hc.water_count = #{waterCount}</if>
+            <if test="electricCount != null and electricCount != ''"> and hc.electric_count = #{electricCount}</if>
+            <if test="gasCount != null and gasCount != ''"> and hc.gas_count = #{gasCount}</if>
+            <if test="waterArrays != null and waterArrays != ''"> and hc.water_arrays = #{waterArrays}</if>
+            <if test="electricArrays != null and electricArrays != ''"> and hc.electric_arrays = #{electricArrays}</if>
+            <if test="gasArrays != null and gasArrays != ''"> and hc.gas_arrays = #{gasArrays}</if>
+        </where>
+    </select>
+
+</mapper>

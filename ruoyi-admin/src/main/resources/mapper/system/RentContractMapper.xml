@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.RentContractMapper">
+
+    <resultMap id="RentContractResultVo" type="com.ruoyi.system.domain.vo.RentContractVo">
+        <id property="contractId" column="contract_id"/>
+        <result property="rentId" column="rent_id"/>
+        <result property="housingId" column="housing_id"/>
+        <result property="rentName" column="rent_name"/>
+        <result property="rentBeginTime" column="rent_begin_time"/>
+        <result property="rentEndTime" column="rent_end_time"/>
+        <result property="rentPayAmount" column="rent_pay_amount"/>
+        <result property="housingInfo" column="housing_info"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="rentPayment" column="rent_payment"/>
+        <result property="created" column="created"/>
+        <result property="info" column="info"/>
+        <result property="files" column="files"/>
+    </resultMap>
+    <resultMap id="RentContractResult" type="com.ruoyi.system.domain.RentContract">
+        <id property="contractId" column="contract_id"/>
+        <result property="rentId" column="rent_id"/>
+        <result property="housingId" column="housing_id"/>
+        <result property="rentName" column="rent_name"/>
+        <result property="rentBeginTime" column="rent_begin_time"/>
+        <result property="rentEndTime" column="rent_end_time"/>
+        <result property="rentPayAmount" column="rent_pay_amount"/>
+        <result property="housingInfo" column="housing_info"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="rentPayment" column="rent_payment"/>
+        <result property="created" column="created"/>
+        <result property="info" column="info"/>
+        <result property="files" column="files"/>
+    </resultMap>
+
+    <sql id="selectRentContractVo">
+        select rc.contract_id, rc.rent_id, rc.housing_id, rc.rent_name, rc.rent_begin_time, rc.rent_end_time, rc.rent_pay_amount, rc.housing_info, rc.housing_landlord_name, rc.rent_payment, rc.created, rc.info, rc.files from rent_contract rc
+    </sql>
+    <select id="queryList" parameterType="com.ruoyi.system.domain.dto.RentContractQuery" resultMap="RentContractResultVo">
+        <include refid="selectRentContractVo"/>
+        <where>
+            <if test="rentId != null "> and rc.rent_id = #{rentId}</if>
+            <if test="housingId != null "> and rc.housing_id = #{housingId}</if>
+            <if test="rentName != null and rentName != ''"> and rc.rent_name like concat('%', #{rentName}, '%')</if>
+            <if test="rentBeginTime != null "> and rc.rent_begin_time = #{rentBeginTime}</if>
+            <if test="rentEndTime != null "> and rc.rent_end_time = #{rentEndTime}</if>
+            <if test="rentPayAmount != null and rentPayAmount != ''"> and rc.rent_pay_amount = #{rentPayAmount}</if>
+            <if test="housingInfo != null and housingInfo != ''">and rc.housing_info like concat('%', #{housingInfo}, '%')</if>
+            <if test="housingLandlordName != null and housingLandlordName != ''"> and rc.housing_landlord_name like concat('%', #{housingLandlordName}, '%')</if>
+            <if test="rentPayment != null and rentPayment != ''"> and rc.rent_payment = #{rentPayment}</if>
+            <if test="created != null "> and rc.created = #{created}</if>
+            <if test="info != null and info != ''"> and rc.info = #{info}</if>
+            <if test="files != null and files != ''"> and rc.files = #{files}</if>
+        </where>
+    </select>
+
+</mapper>

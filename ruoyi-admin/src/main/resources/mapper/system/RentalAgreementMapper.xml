@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.RentalAgreementMapper">
+
+    <resultMap id="RentalAgreementResultVo" type="com.ruoyi.system.domain.vo.RentalAgreementVo">
+        <result property="contractId" column="contract_id"/>
+        <result property="rentId" column="rent_id"/>
+        <result property="rentName" column="rent_name"/>
+        <result property="housingQuarters" column="housing_quarters"/>
+        <result property="housingNumber" column="housing_number"/>
+        <result property="housingId" column="housing_id"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="rentStartTime" column="rent_start_time"/>
+        <result property="rentEndTime" column="rent_end_time"/>
+        <result property="rentPayment" column="rent_payment"/>
+        <result property="rentAcount" column="rent_acount"/>
+        <result property="rentDeposit" column="rent_deposit"/>
+        <result property="rentPaymentTime" column="rent_payment_time"/>
+        <result property="info" column="info"/>
+        <result property="rentArrays" column="rent_arrays"/>
+        <result property="terms" column="terms"/>
+    </resultMap>
+    <resultMap id="RentalAgreementResult" type="com.ruoyi.system.domain.RentalAgreement">
+        <id property="id" column="id"/>
+        <result property="contractId" column="contract_id"/>
+        <result property="rentId" column="rent_id"/>
+        <result property="rentName" column="rent_name"/>
+        <result property="housingId" column="housing_id"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="rentStartTime" column="rent_start_time"/>
+        <result property="rentEndTime" column="rent_end_time"/>
+        <result property="rentPayment" column="rent_payment"/>
+        <result property="rentAcount" column="rent_acount"/>
+        <result property="rentDeposit" column="rent_deposit"/>
+        <result property="rentPaymentTime" column="rent_payment_time"/>
+        <result property="info" column="info"/>
+        <result property="rentArrays" column="rent_arrays"/>
+        <result property="terms" column="terms"/>
+    </resultMap>
+
+    <sql id="selectRentalAgreementVo">
+        select ra.id, ra.contract_id, ra.rent_id, ra.rent_name, ra.housing_id, ra.housing_landlord_name, ra.rent_start_time, ra.rent_end_time, ra.rent_payment, ra.rent_acount, ra.rent_deposit, ra.rent_payment_time, ra.info, ra.rent_arrays, ra.terms,hr.housing_number,hr.housing_quarters from rental_agreement ra left join housing_resources hr on ra.housing_id=hr.housing_id
+    </sql>
+    <select id="queryList" parameterType="com.ruoyi.system.domain.dto.RentalAgreementQuery" resultMap="RentalAgreementResultVo">
+        <include refid="selectRentalAgreementVo"/>
+        <where>
+            <if test="contractId != null ">and ra.contract_id = #{contractId}</if>
+            <if test="rentId != null ">and ra.rent_id = #{rentId}</if>
+            <if test="rentName != null and rentName != ''">and ra.rent_name like concat('%', #{rentName}, '%')</if>
+            <if test="housingId != null ">and ra.housing_id = #{housingId}</if>
+            <if test="housingLandlordName != null and housingLandlordName != ''">and ra.housing_landlord_name like
+                concat('%', #{housingLandlordName}, '%')
+            </if>
+            <if test="housingNumber != null and housingNumber != ''">and hr.housing_number like concat('%', #{housingNumber}, '%')</if>
+            <if test="rentStartTime != null ">and ra.rent_start_time = #{rentStartTime}</if>
+            <if test="rentEndTime != null ">and ra.rent_end_time = #{rentEndTime}</if>
+            <if test="rentPayment != null and rentPayment != ''">and ra.rent_payment = #{rentPayment}</if>
+            <if test="rentAcount != null ">and ra.rent_acount = #{rentAcount}</if>
+            <if test="rentDeposit != null ">and ra.rent_deposit = #{rentDeposit}</if>
+            <if test="rentPaymentTime != null ">and ra.rent_payment_time = #{rentPaymentTime}</if>
+            <if test="info != null and info != ''">and ra.info = #{info}</if>
+            <if test="rentArrays != null and rentArrays != ''">and ra.rent_arrays = #{rentArrays}</if>
+            <if test="terms != null and terms != ''">and ra.terms = #{terms}</if>
+            <if test="housingQuarters != null and housingQuarters != ''">and hr.housing_quarters = #{housingQuarters,jdbcType=VARCHAR}</if>
+        </where>
+    </select>
+
+</mapper>

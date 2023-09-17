@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.RentUserMapper">
+
+    <resultMap id="RentUserResultVo" type="com.ruoyi.system.domain.vo.RentUserVo">
+        <id property="rentId" column="rent_id"/>
+        <result property="rentUsername" column="rent_username"/>
+        <result property="rentPassword" column="rent_password"/>
+        <result property="rentWxid" column="rent_wxid"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="rentIdentifyNum" column="rent_identify_num"/>
+        <result property="rentBirthday" column="rent_birthday"/>
+        <result property="rentInfo" column="rent_info"/>
+        <result property="rentSex" column="rent_sex"/>
+        <result property="rentFiles" column="rent_files"/>
+    </resultMap>
+    <resultMap id="RentUserResult" type="com.ruoyi.system.domain.RentUser">
+        <id property="rentId" column="rent_id"/>
+        <result property="rentUsername" column="rent_username"/>
+        <result property="rentPassword" column="rent_password"/>
+        <result property="rentWxid" column="rent_wxid"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="rentIdentifyNum" column="rent_identify_num"/>
+        <result property="rentBirthday" column="rent_birthday"/>
+        <result property="rentInfo" column="rent_info"/>
+        <result property="rentSex" column="rent_sex"/>
+        <result property="rentFiles" column="rent_files"/>
+    </resultMap>
+
+    <sql id="selectRentUserVo">
+        select ru.rent_id, ru.rent_username, ru.rent_password, ru.rent_wxid,ru.phone_num, ru.rent_identify_num, ru.rent_birthday, ru.rent_info, ru.rent_sex, ru.rent_files from rent_user ru
+    </sql>
+    <select id="queryList" parameterType="com.ruoyi.system.domain.dto.RentUserQuery" resultMap="RentUserResultVo">
+        <include refid="selectRentUserVo"/>
+        <where>
+            <if test="rentUsername != null and rentUsername != ''"> and ru.rent_username like concat('%', #{rentUsername}, '%')</if>
+            <if test="rentPassword != null and rentPassword != ''"> and ru.rent_password = #{rentPassword}</if>
+            <if test="rentWxid != null and rentWxid != ''"> and ru.rent_wxid = #{rentWxid}</if>
+            <if test="phoneNum != null and phoneNum != ''"> and ru.phone_num = #{phoneNum}</if>
+            <if test="rentIdentifyNum != null "> and ru.rent_identify_num = #{rentIdentifyNum}</if>
+            <if test="rentBirthday != null and rentBirthday != ''"> and ru.rent_birthday = #{rentBirthday}</if>
+            <if test="rentInfo != null and rentInfo != ''"> and ru.rent_info = #{rentInfo}</if>
+            <if test="rentSex != null and rentSex != ''"> and ru.rent_sex = #{rentSex}</if>
+            <if test="rentFiles != null and rentFiles != ''"> and ru.rent_files = #{rentFiles}</if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HousingResourcesMapper">
+
+    <resultMap id="HousingResourcesResultVo" type="com.ruoyi.system.domain.vo.HousingResourcesVo">
+        <id property="housingId" column="housing_id"/>
+        <result property="housingQuarters" column="housing_quarters"/>
+        <result property="housingBuildiing" column="housing_buildiing"/>
+        <result property="housingUnit" column="housing_unit"/>
+        <result property="housingNumber" column="housing_number"/>
+        <result property="housingAddress" column="housing_address"/>
+        <result property="housingArea" column="housing_area"/>
+        <result property="housingRoomType" column="housing_room_type"/>
+        <result property="housingOrientation" column="housing_orientation"/>
+        <result property="housingDecoration" column="housing_decoration"/>
+        <result property="housingApplianceConf" column="housing_appliance_conf"/>
+        <result property="housingDescription" column="housing_description"/>
+        <result property="housingPaymentMethod" column="housing_payment_method"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="housingLandlordMobile" column="housing_landlord_mobile"/>
+        <result property="housingLandlordEmail" column="housing_landlord_email"/>
+        <result property="housingIdNum" column="housing_id_num"/>
+        <result property="housingIsRented" column="housing_is_rented"/>
+        <result property="housingRemarks" column="housing_remarks"/>
+        <result property="housingCreated" column="housing_created"/>
+        <result property="files" column="files"/>
+    </resultMap>
+    <resultMap id="HousingResourcesResult" type="com.ruoyi.system.domain.HousingResources">
+        <id property="housingId" column="housing_id"/>
+        <result property="housingQuarters" column="housing_quarters"/>
+        <result property="housingBuildiing" column="housing_buildiing"/>
+        <result property="housingUnit" column="housing_unit"/>
+        <result property="housingNumber" column="housing_number"/>
+        <result property="housingAddress" column="housing_address"/>
+        <result property="housingArea" column="housing_area"/>
+        <result property="housingRoomType" column="housing_room_type"/>
+        <result property="housingOrientation" column="housing_orientation"/>
+        <result property="housingDecoration" column="housing_decoration"/>
+        <result property="housingApplianceConf" column="housing_appliance_conf"/>
+        <result property="housingDescription" column="housing_description"/>
+        <result property="housingPaymentMethod" column="housing_payment_method"/>
+        <result property="housingLandlordName" column="housing_landlord_name"/>
+        <result property="housingLandlordMobile" column="housing_landlord_mobile"/>
+        <result property="housingLandlordEmail" column="housing_landlord_email"/>
+        <result property="housingIdNum" column="housing_id_num"/>
+        <result property="housingIsRented" column="housing_is_rented"/>
+        <result property="housingRemarks" column="housing_remarks"/>
+        <result property="housingCreated" column="housing_created"/>
+        <result property="files" column="files"/>
+    </resultMap>
+
+    <sql id="selectHousingResourcesVo">
+        select hr.housing_id, hr.housing_quarters, hr.housing_buildiing, hr.housing_unit, hr.housing_number, hr.housing_address, hr.housing_area, hr.housing_room_type, hr.housing_orientation, hr.housing_decoration, hr.housing_appliance_conf, hr.housing_description, hr.housing_payment_method, hr.housing_landlord_name, hr.housing_landlord_mobile, hr.housing_landlord_email, hr.housing_id_num, hr.housing_is_rented, hr.housing_remarks, hr.housing_created, hr.files from housing_resources hr
+    </sql>
+    <select id="queryList" parameterType="com.ruoyi.system.domain.dto.HousingResourcesQuery" resultMap="HousingResourcesResultVo">
+        <include refid="selectHousingResourcesVo"/>
+        <where>
+            <if test="housingQuarters != null and housingQuarters != ''"> and hr.housing_quarters = #{housingQuarters}</if>
+            <if test="housingBuildiing != null and housingBuildiing != ''"> and hr.housing_buildiing = #{housingBuildiing}</if>
+            <if test="housingUnit != null and housingUnit != ''"> and hr.housing_unit = #{housingUnit}</if>
+            <if test="housingNumber != null and housingNumber != ''"> and hr.housing_number = #{housingNumber}</if>
+            <if test="housingAddress != null and housingAddress != ''"> and hr.housing_address = #{housingAddress}</if>
+            <if test="housingArea != null and housingArea != ''"> and hr.housing_area = #{housingArea}</if>
+            <if test="housingRoomType != null and housingRoomType != ''"> and hr.housing_room_type = #{housingRoomType}</if>
+            <if test="housingOrientation != null and housingOrientation != ''"> and hr.housing_orientation = #{housingOrientation}</if>
+            <if test="housingDecoration != null and housingDecoration != ''"> and hr.housing_decoration = #{housingDecoration}</if>
+            <if test="housingApplianceConf != null and housingApplianceConf != ''"> and hr.housing_appliance_conf = #{housingApplianceConf}</if>
+            <if test="housingDescription != null and housingDescription != ''"> and hr.housing_description = #{housingDescription}</if>
+            <if test="housingPaymentMethod != null and housingPaymentMethod != ''"> and hr.housing_payment_method = #{housingPaymentMethod}</if>
+            <if test="housingLandlordName != null and housingLandlordName != ''"> and hr.housing_landlord_name like concat('%', #{housingLandlordName}, '%')</if>
+            <if test="housingLandlordMobile != null and housingLandlordMobile != ''"> and hr.housing_landlord_mobile = #{housingLandlordMobile}</if>
+            <if test="housingLandlordEmail != null and housingLandlordEmail != ''"> and hr.housing_landlord_email = #{housingLandlordEmail}</if>
+            <if test="housingIdNum != null and housingIdNum != ''"> and hr.housing_id_num = #{housingIdNum}</if>
+            <if test="housingIsRented != null and housingIsRented != ''"> and hr.housing_is_rented = #{housingIsRented}</if>
+            <if test="housingRemarks != null and housingRemarks != ''"> and hr.housing_remarks = #{housingRemarks}</if>
+            <if test="housingCreated != null "> and hr.housing_created = #{housingCreated}</if>
+            <if test="files != null and files != ''"> and hr.files = #{files}</if>
+        </where>
+        ORDER BY hr.housing_number asc
+    </select>
+</mapper>
