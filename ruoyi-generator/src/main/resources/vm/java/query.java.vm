@@ -1,0 +1,32 @@
+package ${packageName}.domain.dto;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Date;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+import com.ruoyi.common.core.domain.BaseEntity;
+
+/**
+ * ${functionName}业务对象 ${tableName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ${ClassName}Query extends BaseEntity {
+
+#foreach ($column in $columns)
+#if($column.isQuery == '1')
+    /**
+     * $column.columnComment
+     */
+    private $column.javaType $column.javaField;
+
+#end
+#end
+}

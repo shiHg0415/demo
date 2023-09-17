@@ -1,0 +1,61 @@
+#if($table.crud || $table.sub)
+import { BaseEntity } from '@/api/model/resultModel';
+#set($Entity="BaseEntity")
+#set($BoEntity=$Entity)
+#elseif($table.tree)
+import {#if($useQuery) BaseEntity,#end TreeEntity } from '@/api/model/ResultModel';
+#set($Entity="TreeEntity<${ClassName}>")
+#set($BoEntity="TreeEntity<${ClassName}Bo>")
+#end
+
+#if($useQuery)
+/**
+ * ${functionName}查询对象
+ */
+export interface ${ClassName}Query extends BaseEntity {
+#foreach ($column in $columns)
+#if($column.isQuery == '1')
+  /** $column.columnComment */
+  $column.javaField?: ${GenUtil.javaTypeToTypescript($column.javaType)};
+#end
+#end
+}
+
+#end
+#if($useBO)
+/**
+ * ${functionName}业务对象
+ */
+export interface ${ClassName}Bo extends ${BoEntity} {
+#foreach ($column in $columns)
+#if(($column.isPk == '1' || $column.isInsert == '1' || $column.isEdit == '1'))
+  /** $column.columnComment */
+  $column.javaField?: ${GenUtil.javaTypeToTypescript($column.javaType)};
+#end
+#end
+}
+
+#end
+/**
+ * ${functionName}对象 ${tableName}
+ */
+export interface ${ClassName} extends ${Entity} {
+#foreach ($column in $columns)
+  /** $column.columnComment */
+  $column.javaField?: ${GenUtil.javaTypeToTypescript($column.javaType)};
+#end
+}
+#if($useVO)
+
+/**
+ * ${functionName}视图对象
+ */
+export interface ${ClassName}Vo {
+#foreach ($column in $columns)
+#if($column.isList == '1' || $column.isPk == '1' || $column.isEdit == '1' || $column.isInsert == '1' || $column.isDetail == '1')
+  /** $column.columnComment */
+  $column.javaField?: ${GenUtil.javaTypeToTypescript($column.javaType)};
+#end
+#end
+}
+#end
